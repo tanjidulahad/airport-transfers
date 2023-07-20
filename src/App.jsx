@@ -96,10 +96,10 @@ function App() {
       (flight) =>
         flight.departure.toLowerCase() === departure.toLowerCase() &&
         flight.destination.toLowerCase() === destination.toLowerCase() &&
-        new Date(flight.date) >= new Date(dateTime)
+        new Date(flight.date).toISOString().split('T')[0] == dateTime
     );
     setSearchResults(filteredResults);
-    console.log(filteredResults);
+    console.log(filteredResults,dateTime,new Date(availableFlights[0].date).toISOString().split('T')[0]);
   };
 
   return (
@@ -124,7 +124,6 @@ function App() {
               <input
                 className='w-full md:w-[80%] text-xl rounded-md py-2 my-4 px-2 border-none outline-none'
                 type="date"
-                min={new Date().toISOString().split('T')[0]}
                 value={dateTime}
                 onChange={(e) => setDateTime(e.target.value)}
               />
@@ -146,7 +145,7 @@ function App() {
 
           </div>
           <div className='text-red-600 font-semibold mb-2'>
-            <p>For testing use: City A ={'>'} City B OR City C ={'>'} City D</p>
+            <p>For testing use: City A ={'>'} City B or City C ={'>'} City D and use this date 7/25/2023</p>
           </div>
         </div>
 
